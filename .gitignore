@@ -1,0 +1,67 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+*.venv
+
+# Environments and package managers
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+poetry.lock
+
+# Testing / Coverage
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+.hypothesis/
+
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+
+# IDE/editor specific files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment variables and secrets
+.env
+*.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Compiled code
+*.class
+
+# Jupyter notebooks
+.ipynb_checkpoints
+
+# macOS files
+*.DS_Store
+
+# Backup and temporary files
+*.bak
+*.swp
+*.swo
+*~
+
+# Build artifacts and dependencies
+build/
+dist/
+*.egg-info/
+*.egg
