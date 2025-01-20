@@ -22,6 +22,10 @@ To run this gem, you'll need:
   - `requests` 📡 (for fetching job listings)
   - `python-dotenv` 🔑 (for managing environment variables)
 
+## ⚠️ Important Note About Brevo
+
+Brevo (formerly Sendinblue) **does not work with free email providers** (like Gmail, Yahoo, etc.). It is best used with a personal domain (e.g., `yourname@yourdomain.com`). Make sure your sender email is verified and authenticated in Brevo to avoid authentication errors.
+
 ## 🛠️ Installation
 
 1. **Clone the repository:**
@@ -52,7 +56,10 @@ To run this gem, you'll need:
    ```env
    EMAIL_FROM=your-verified-brevo-email@yourdomain.com
    EMAIL_TO=yourgmail@gmail.com
+   EMAIL_USERNAME=your-brevo-smtp-username
    EMAIL_PASSWORD=your-brevo-smtp-key
+   SMTP_SERVER=smtp-relay.brevo.com
+   SMTP_PORT=587
    ```
 
 5. **Run the script:**
