@@ -19,19 +19,23 @@ EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')  # Brevo SMTP password
 # Job board URL and search keywords
 JOB_URL = os.getenv('JOB_URL', 'https://jobs.lever.co/hallow')
 KEYWORDS = os.getenv('KEYWORDS', 'developer,engineer').split(',')
-JOB_TITLE_HTML_TAG = 'h5' # Change depending on how the individual posts are formatted
+JOB_TITLE_HTML_TAG = 'h5'  # Change depending on how the individual posts are formatted
 
 def fetch_job_listings():
     """
     Fetch job listings from the provided job board URL and return formatted results.
-    Highlights job titles that contain specified keywords.
+    If no job titles are found with the specified HTML tag, return None.
     """
     response = requests.get(JOB_URL)
     if response.status_code != 200:
-        return "Failed to retrieve job listings."
+        return None
 
     soup = BeautifulSoup(response.text, 'html.parser')
-    job_titles = soup.find_all()
+    job_titles = soup.find_all(JOB_TITLE_HTML_TAG)
+
+    if not job_titles:
+        return None  # No job postings found, signal to exit early
+
     job_list = []
 
     for job in job_titles:
@@ -48,7 +52,7 @@ def fetch_job_listings():
         job_list.append(formatted_text)
 
     if not job_list:
-        return "No job postings found."
+        return None  # No matching jobs found, signal to exit early
 
     # Prepare email content with job listings and a link to the website
     email_body = (
@@ -63,8 +67,13 @@ def send_email():
     """
     Send an email with the job listings.
     The email is sent as HTML content.
+    If no job listings are found, no email will be sent.
     """
     content = fetch_job_listings()
+    
+    if not content:
+        print("No job postings found. Email not sent.")
+        return  # Exit without sending an email
 
     msg = MIMEText(content, "html")  # Send email as HTML
     msg['Subject'] = "🛠️ Hallow Job Listings - Daily Update"
